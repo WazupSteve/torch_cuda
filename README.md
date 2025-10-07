@@ -84,7 +84,7 @@ streamlit run dashboard/app.py
 # → Opens http://localhost:8501
 ```
 
-## � Data Pipeline
+## Data Pipeline
 
 ```
 PyTorch Forum API
