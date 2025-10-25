@@ -37,9 +37,9 @@ def load_model():
 
 df = load_data()
 
-if not df:
-    st.error("Data file not found. Please run data collection and processing first.")
-    st.stop()
+if df is None or df.empty:
+   st.error("Data file not found. Please run data collection and processing first.")
+   st.stop()
 
 if page == "Data Overview":
     st.header("Data Overview")

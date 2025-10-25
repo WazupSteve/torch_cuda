@@ -318,37 +318,34 @@ class CausalInference:
         return {"ate_x_learner": ate}
 
     def double_ml(self) -> Dict:
-        """
-        Double Machine Learning for confidence intervals
-
-        Returns:
-            Dictionary with ATE estimate and confidence interval
-        """
+        """Double/Debiased Machine Learning"""
         print("\n=== Double Machine Learning ===")
-
-        # Use LinearDML
-        model = LinearDML(
-            model_y=RandomForestRegressor(n_estimators=100, random_state=42),
-            model_t=RandomForestRegressor(n_estimators=100, random_state=42),
-            random_state=42,
-        )
-
-        # Fit model
-        model.fit(self.Y, self.T, X=self.X, W=None)
-
-        # Get ATE with confidence interval
-        ate = model.ate(self.X)
-        ate_inference = model.ate_inference(self.X)
-        ci_lower, ci_upper = ate_inference.conf_int()[0]
-
-        print(f"ATE (Double ML): {ate:.2f} hours")
-        print(f"95% CI: [{ci_lower:.2f}, {ci_upper:.2f}]")
-
-        return {
-            "ate_double_ml": ate,
-            "ci_lower": ci_lower,
-            "ci_upper": ci_upper,
-        }
+        try:
+            from econml.dml import LinearDML
+            from sklearn.ensemble import RandomForestRegressor
+            
+            X_dml = np.asarray(self.X)
+            T_dml = np.asarray(self.T).ravel()
+            Y_dml = np.asarray(self.Y).ravel()
+            
+            model = LinearDML(
+                model_y=RandomForestRegressor(n_estimators=100, random_state=42),
+                model_t=RandomForestRegressor(n_estimators=100, random_state=42),
+                random_state=42
+            )
+            
+            model.fit(Y_dml, T_dml, X=X_dml)
+            ate_inference = model.ate_inference(X_dml)
+            
+            return {
+                "ate": float(ate_inference.mean_point),
+                "ci_lower": float(ate_inference.conf_int()[0]),
+                "ci_upper": float(ate_inference.conf_int()[1]),
+                "p_value": float(ate_inference.pvalue()),
+            }
+        except Exception as e:
+            print(f"Double ML failed: {e}")
+            return {"ate": np.nan, "ci_lower": np.nan, "ci_upper": np.nan, "p_value": np.nan}
 
     def sensitivity_analysis(self):
         """
