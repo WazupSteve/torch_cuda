@@ -5,7 +5,6 @@ Processes raw forum data and extracts features for analysis.
 """
 
 import json
-import re
 import logging
 from pathlib import Path
 from typing import Dict, List

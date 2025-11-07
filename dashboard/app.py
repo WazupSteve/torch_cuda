@@ -6,11 +6,9 @@ Interactive dashboard for predicting resolution times and visualizing causal eff
 
 import streamlit as st
 import pandas as pd
-import numpy as np
 import pickle
 from pathlib import Path
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 st.set_page_config(
     page_title="CUDA Error Resolution Analysis",
@@ -120,11 +118,11 @@ elif page == "Predict Resolution Time":
             st.subheader("Key Factors")
             factors = []
             if is_cuda:
-                factors.append("✓ CUDA-related (+4 hours)")
+                factors.append("CUDA-related (+4 hours)")
             if has_code:
-                factors.append("✓ Includes code (-2 hours)")
+                factors.append("Includes code (-2 hours)")
             if has_error:
-                factors.append("✓ Has error trace (+1 hour)")
+                factors.append("Has error trace (+1 hour)")
 
             for factor in factors:
                 st.markdown(factor)

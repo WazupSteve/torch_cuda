@@ -7,9 +7,8 @@ Performs causal analysis using propensity score matching, meta-learners, and Dou
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
 from pathlib import Path
-from typing import Dict, Tuple
+from typing import Dict
 
 from sklearn.linear_model import LogisticRegression, LinearRegression
 from sklearn.preprocessing import StandardScaler
