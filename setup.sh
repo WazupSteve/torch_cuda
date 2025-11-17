@@ -10,13 +10,13 @@ echo ""
 
 # Check if uv is installed
 if ! command -v uv &> /dev/null; then
-    echo "❌ uv is not installed"
+    echo "uv is not installed"
     echo "Please install uv first:"
     echo "  curl -LsSf https://astral.sh/uv/install.sh | sh"
     exit 1
 fi
 
-echo "✓ uv found"
+echo "uv found"
 
 # Create virtual environment
 echo ""
@@ -44,9 +44,7 @@ echo "Ensuring directory structure..."
 mkdir -p data/raw data/processed data/models notebooks dashboard src/scraper src/analysis src/utils tests
 
 echo ""
-echo "========================================="
-echo "✓ Setup complete!"
-echo "========================================="
+echo "Setup complete!"
 echo ""
 echo "Next steps:"
 echo ""
