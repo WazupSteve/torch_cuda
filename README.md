@@ -10,27 +10,6 @@
 2. **Predictive**: Can we predict resolution time based on topic features (code blocks, error traces, views)?
 3. **Causal**: Does CUDA-related content causally affect time to resolution?
 
-## Project Structure
-
-```
-root@ADA_Project > tree 
-
-ADA_Project/
-├── src/
-│   ├── scraper/
-│   │   ├── forum_scraper.py      # PyTorch forum scraper (REST API)
-│   │   └── feature_engineer.py   # JSON → CSV feature extraction
-│   └── analysis/
-│       ├── descriptive.py        # Summary stats, correlation, ANOVA
-│       ├── predictive.py         # ML models for resolution time
-│       └── causal.py             # PSM, S/T/X-learners, Double ML
-├── notebooks/                    # Jupyter analysis workflows
-├── dashboard/                    # Streamlit interactive dashboard
-└── data/
-    ├── raw/                     # Scraped JSON batches
-    └── processed/               # Cleaned CSV + figures
-```
-
 ## Quick Start
 
 ### 1. Setup Environment
@@ -54,11 +33,11 @@ python src/scraper/forum_scraper.py --max-pages 5
 
 # Full scrape (recommended overnight)
 python src/scraper/forum_scraper.py
-# → Creates topics_batch_*.json in data/raw/
+# Creates topics_batch_*.json in data/raw/
 
 # Process to CSV (~30-60 min)
 python src/scraper/feature_engineer.py
-# → Creates forum_data.csv in data/processed/
+# Creates forum_data.csv in data/processed/
 ```
 
 ### 3. Run Analysis
@@ -81,7 +60,7 @@ python src/analysis/causal.py
 **Option C: Interactive Dashboard**
 ```bash
 streamlit run dashboard/app.py
-# → Opens http://localhost:8501
+# Opens http://localhost:8501
 ```
 
 ## Data Pipeline
@@ -142,15 +121,3 @@ Analysis (descriptive/predictive/causal)
 ## License
 
 MIT License - See [LICENSE](LICENSE) file
-
-## Contributing
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
-
----
-
-**Built with:** Python 3.11 • UV Package Manager • PyTorch Forum Data
